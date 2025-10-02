@@ -1,0 +1,23 @@
+﻿USE master;
+GO
+IF DB_ID('LangDictionaryDb') IS NOT NULL
+BEGIN
+ALTER DATABASE LangDictionaryDb
+SET SINGLE_USER WITH ROLLBACK IMMEDIATE
+DROP DATABASE LangDictionaryDb;
+END
+GO
+CREATE DATABASE LangDictionaryDb COLLATE Latin1_General_CI_AI;
+GO
+USE LangDictionaryDb;
+GO
+CREATE TABLE dbo.EnAraDictionary
+(
+    Id	int NOT NULL PRIMARY KEY IDENTITY,
+    Eng nvarchar(MAX) NOT NULL,
+    Ara nvarchar(MAX) NOT NULL,
+    LastModified datetime NOT NULL DEFAULT GETDATE()
+);
+GO
+ALTER DATABASE LangDictionaryDb
+SET MULTI_USER WITH ROLLBACK IMMEDIATE
